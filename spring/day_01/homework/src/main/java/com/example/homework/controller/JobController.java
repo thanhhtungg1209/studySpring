@@ -1,6 +1,7 @@
 package com.example.homework.controller;
 
 import com.example.homework.model.Job;
+import com.example.homework.request.UpsertJob;
 import com.example.homework.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,29 @@ public class JobController {
     @Autowired
     private JobService jobService;
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<Job> getAllJob(){
         return jobService.getAllJob();
     }
+    @PostMapping("/create")
+    public Job createBook(@RequestBody UpsertJob request){
+
+        return jobService.createJob(request);
+    }
+    @PutMapping("/update/{id} ")
+    public Job updateBook(@PathVariable String  id,@RequestBody UpsertJob request ){
+        return jobService.updateJob(id, request);
+    }
+    @DeleteMapping("/{id}")
+    public  void  deleteJob(@PathVariable String id){
+        jobService.deleteJob(id);
+
+    }
+
+
+
+
+
 
     @GetMapping("/random")
     public Job getJobRandom(){
